@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师个人主页</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f9f9f9, #e9ecef);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(to right, #003366, #00509e);
+            color: #fff;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 60px;
+            vertical-align: middle;
+        }
+
+        header h1 {
+            display: inline;
+            margin-left: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .left-column {
+            width: 30%;
+            background: #e6f2ff;
+            /* Changed to light blue background */
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            /* Align content to the left */
+            color: #333;
+            /* Adjusted text color for readability */
+        }
+
+        .left-column img {
+            display: block;
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin: 0 auto 1rem;
+        }
+
+        .left-column h2 {
+            color: #00509e;
+            /* Deep blue for section titles */
+            border-bottom: 2px solid #00509e;
+            /* Deep blue divider */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .right-column {
+            width: 65%;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #00509e;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: disc;
+            /* Retain black circular bullets */
+            padding-left: 1.5rem;
+        }
+
+        ul li {
+            margin-bottom: 0.8rem;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .basic-info p {
+            margin: 0.8rem 0;
+            font-size: 1rem;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .links img {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease;
+        }
+
+        .links img:hover {
+            transform: scale(1.2);
+        }
+
+        .right-column ul {
+            list-style: decimal;
+            /* Changed to numbered list for publications */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="https://www.tju.edu.cn/images/logo.png" alt="天津大学">
+        <h1>教师个人主页</h1>
+    </header>
+    <div class="container">
+        <div class="left-column">
+            <img src="avatar.jpg" alt="个人头像">
+            <div class="links" style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                <a href="https://wyinleo.github.io" target="_blank">
+                    <img src="github-logo.png" alt="Academic Page" style="width: 24px; height: 24px;">
+                </a>
+                <a href="https://scholar.google.com/citations?hl=zh-CN&user=xi3TfNYAAAAJ" target="_blank">
+                    <img src="google-scholar-logo.png" alt="Google Scholar" style="width: 24px; height: 24px;">
+                </a>
+            </div>
+            <div class="basic-info">
+                <p><strong>姓名：</strong>王寅</p>
+                <p><strong>学院：</strong>网络安全学院</p>
+                <p><strong>邮箱：</strong>wyin at tju.edu.cn</p>
+                <p><strong>地址：</strong>北洋园校区55教B110</p>
+            </div>
+            <h2>教育经历</h2>
+            <ul>
+                <li>2019.09 - 2025.12, 控制科学与工程，博士, 西安交通大学, 导师: <a href="https://gr.xjtu.edu.cn/web/tingliu">刘烃</a>, <a
+                        href="https://gr.xjtu.edu.cn/web/mingfan">范铭</a></li>
+                <li>2015.09 - 2019.06, 自动化，学士, 西安交通大学</li>
+            </ul>
+            <h2>任职实习</h2>
+            <ul>
+                <li>2026.03 - 至今, 讲师, 天津大学网络安全学院</li>
+                <li>2024.11 - 2025.01, 助理研究员, 香港理工大学</li>
+                <li>2023.02 - 2024.02, 研究实习生, 蚂蚁集团</li>
+            </ul>
+            <h2>荣誉奖励</h2>
+            <ul>
+                <li>2024.10 IEEE/ACM ASE 2024 Distinguished Paper Award</li>
+                <li>2023.10 ACM CCS workshop SaTS'23 杰出论文奖</li>
+            </ul>
+        </div>
+        <div class="right-column">
+            <h2>个人简介</h2>
+            <p>王寅，天津大学网络安全学院讲师，研究方向包括<strong>隐私合规</strong>，<strong>移动安全</strong>，<strong>程序分析（小程序）</strong>，相关工作发表在TSE、ASE等期刊会议，参与蚂蚁、华为等多项企业横向课题。
+            </p>
+            <p><strong>欢迎对相关方向感兴趣的同学与我联系！</strong></p>
+            <h2>出版物</h2>
+            <ul>
+                <li>Yin Wang, Ming Fan, Junfeng Liu, Junjie Tao, Wuxia Jin, Haijun Wang, Qi Xiong, Ting Liu. Do as You
+                    Say: Consistency Detection of Data Practice in Program Code and Privacy Policy in Mini-App. IEEE
+                    Transactions on Software Engineering (IEEE TSE), vol. 50, issue 10, pp. 3225--3248, 2024. (CCF A)
+                </li>
+                <li>Yin Wang, Ming Fan, Hao Zhou, Haijun Wang, Wuxia Jin, Jiajia Li, Wenbo Chen, Shijie Li, Yu Zhang,
+                    Deqiang Han, Ting Liu. MiniChecker: Detecting Data Privacy Risk of Abusive Permission Request
+                    Behavior in Mini-Programs. The 39th IEEE/ACM International Conference on Automated Software
+                    Engineering (ASE 2024), pp. 1667--1679, 2024. (CCF A, Distinguished Paper Award)</li>
+                <li>王寅, 范铭, 陶俊杰, 雷靖薏, 晋武侠, 韩德强, 刘烃. 移动应用隐私权声明内容合规性检验方法. 软件学报, 35(8): 3668--3683, 2024. (CCF A)</li>
+                <li>Ming Fan, Jifei Shi, Yin Wang, Le Yu, Xicheng Zhang, Haijun Wang, Wuxia Jin, Ting Liu. Giving
+                    without Notifying: Assessing Compliance of Data Transmission in Android Apps. The 39th IEEE/ACM
+                    International Conference on Automated Software Engineering (ASE 2024), pp. 1595--1606, 2024. (CCF A)
+                </li>
+                <li>Yin Wang, Ming Fan, Xicheng Zhang, Jifei Shi, Zhaoyu Qiu, Haijun Wang, Ting Liu. LiReDroid:
+                    LLM-Enhanced Test Case Generation for Static Sensitive Behavior Replication. Proceedings of the 15th
+                    Asia-Pacific Symposium on Internetware (Internetware 2024), pp. 81--84, 2024.</li>
+            </ul>
+            <h2>项目</h2>
+            <p>...</p>
+        </div>
+    </div>
+</body>
+
+</html>
