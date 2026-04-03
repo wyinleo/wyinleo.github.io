@@ -7,7 +7,7 @@
 
 # Site Settings
 url                      : "https://wyinleo.github.io"
-baseurl                  : "/academicpages.github.io"
+baseurl                  : "" # 修复路径问题，设置为空
 title                    : "Yin Wang"
 description              : ""
 repository               : "wyinleo/academicpages.github.io"
