@@ -8,3 +8,6 @@ main:
 
   - title: "Projects"
     url: "/projects"
+
+  - title: "Lessons"
+    url: "/lessons/"

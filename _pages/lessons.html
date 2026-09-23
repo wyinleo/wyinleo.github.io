@@ -1,0 +1,28 @@
+---
+permalink: /lessons/
+title: "Lessons"
+excerpt: "Course materials and lecture slides by Yin Wang, Tianjin University."
+author_profile: false
+---
+
+<h1>📚 Lessons</h1>
+<p>Course materials and lecture slides.</p>
+
+<div class="lessons" lang="zh-CN">
+  {% for course in site.data.lessons %}
+  <section class="lesson-course" aria-labelledby="{{ course.id }}">
+    <p class="lesson-course__semester">{{ course.semester }}</p>
+    <h2 id="{{ course.id }}">{{ course.title }} <span lang="en">{{ course.title_en }}</span></h2>
+    <p>点击章节标题在线查看课件，或下载 PDF。</p>
+    <ul class="lesson-slides">
+      {% for slide in course.slides %}
+      {% assign slide_path = '/lessons/' | append: course.id | append: '/' | append: slide.file %}
+      <li>
+        <a class="lesson-slides__title" href="{{ slide_path | relative_url | uri_escape }}">{{ slide.title }}</a>
+        <a class="lesson-slides__download" href="{{ slide_path | relative_url | uri_escape }}" download aria-label="下载{{ slide.title }} PDF">下载 PDF <span aria-hidden="true">↓</span></a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
