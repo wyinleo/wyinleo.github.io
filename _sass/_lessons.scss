@@ -1,0 +1,19 @@
+.page__content .lesson-slides {
+  // Inherit the same body typography used by the About Me publication list.
+  li {
+    font-size: 1em;
+  }
+
+  .lesson-slides__pdf {
+    display: inline-block;
+    margin-left: 0.35em;
+    font-size: 0.8em;
+    font-weight: normal;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+}

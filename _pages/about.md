@@ -28,7 +28,7 @@ I am currently a member of the security group led by [Prof. Yongqiang Lyu](https
 
 # 📚 Teaching
 
-- [26fall-mobile-security]({{ '/lessons/26fall-mobile-security/' | relative_url }})
+- [26Fall: Mobile Security]({{ '/lessons/26fall-mobile-security/' | relative_url }})
 
 # 📝 Publications 
 
