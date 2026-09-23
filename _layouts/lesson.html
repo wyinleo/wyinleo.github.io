@@ -2,6 +2,9 @@
 layout: default
 ---
 {% assign course = site.data.lessons | where: 'id', page.course_id | first %}
+{% if course.schedule %}
+<p lang="en">{{ course.schedule | escape }}</p>
+{% endif %}
 <ul lang="zh-CN">
     {% for slide in course.slides %}
     {% assign slide_path = '/lessons/' | append: course.id | append: '/' | append: slide.file %}
