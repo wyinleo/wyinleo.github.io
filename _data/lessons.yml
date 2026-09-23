@@ -1,6 +1,5 @@
 - id: 26fall-mobile-security
   label: "26fall-Mobile Security"
-  description: "本课程介绍移动安全的基本概念、移动应用开发基础，以及 Android、鸿蒙和小程序等移动系统与平台，为理解移动应用的安全问题建立基础。"
   slides:
     - title: "第一章 · 移动安全导论"
       file: "第一章-移动安全导论.pdf"
