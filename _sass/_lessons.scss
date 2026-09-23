@@ -1,25 +1,4 @@
 .lessons {
-  .lesson-course {
-    margin: 2em 0;
-
-    &__semester {
-      color: $dark-gray;
-      font-size: 0.85em;
-      margin-bottom: 0.5em;
-    }
-
-    h2 {
-      margin: 0 0 0.6em;
-
-      span {
-        display: inline-block;
-        font-size: 0.75em;
-        font-weight: normal;
-        margin-left: 0.4em;
-      }
-    }
-  }
-
   .lesson-slides {
     list-style: none;
     padding: 0;

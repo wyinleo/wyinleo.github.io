@@ -1,0 +1,17 @@
+---
+layout: default
+---
+{% assign course = site.data.lessons | where: 'id', page.course_id | first %}
+<h1>{{ course.label }}</h1>
+<div class="lessons" lang="zh-CN">
+  <p>{{ course.description }}</p>
+  <ul class="lesson-slides">
+    {% for slide in course.slides %}
+    {% assign slide_path = '/lessons/' | append: course.id | append: '/' | append: slide.file %}
+    <li>
+      <a class="lesson-slides__title" href="{{ slide_path | relative_url | uri_escape }}">{{ slide.title }}</a>
+      <a class="lesson-slides__download" href="{{ slide_path | relative_url | uri_escape }}" download aria-label="下载{{ slide.title }} PDF">下载 PDF <span aria-hidden="true">↓</span></a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
