@@ -1,0 +1,11 @@
+- id: 26fall-mobile-security
+  title: "移动安全"
+  title_en: "Mobile Security"
+  semester: "2026 秋季 · Fall 2026"
+  slides:
+    - title: "第一章 · 移动安全导论"
+      file: "第一章-移动安全导论.pdf"
+    - title: "第二章 · 移动开发基础"
+      file: "第二章-移动开发基础.pdf"
+    - title: "第三章 · 移动系统与平台"
+      file: "第三章-移动系统与平台.pdf"
