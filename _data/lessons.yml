@@ -1,6 +1,6 @@
 - id: 26fall-mobile-security
   label: "26fall-Mobile Security"
-  schedule: "Weeks 4–11 · Periods 9–12 · Room 44-B203"
+  schedule: "Mobile Security · Weeks 4–11 · Periods 9–12 · Room 44-B203"
   slides:
     - title: "第一章 · 移动安全导论"
       file: "第一章-移动安全导论.pdf"
