@@ -20,15 +20,12 @@ My research interests lie at the intersection of **mobile security**, **privacy 
 
 I am currently a member of the security group led by [Prof. Yongqiang Lyu](https://scholar.google.com/citations?user=YgM30QQAAAAJ&oi=ao). We are actively looking for motivated Ph.D. students, graduate students, and research interns who are interested in data security, privacy, and program analysis. If you are interested in joining our group, please feel free to contact me.
 
+Teaching: [26Fall-Mobile Security]({{ '/lessons/26fall-mobile-security/' | relative_url }}).
 
 # 🔥 News
 - *2026.03*: &nbsp;🎉🎉 Joined Tianjin University as an Assistant Professor. 
 - *2025.12*: &nbsp;🎓🎓 Received my Ph.D. degree from Xi'an Jiaotong University.
 - *2024.10*: &nbsp;🎉🎉 One paper was accepted by TSE.
-
-# 📚 Teaching
-
-- [26Fall: Mobile Security]({{ '/lessons/26fall-mobile-security/' | relative_url }})
 
 # 📝 Publications 
 
