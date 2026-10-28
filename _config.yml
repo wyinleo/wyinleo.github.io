@@ -16,6 +16,10 @@ google_scholar_stats_use_cdn : true
 # google analytics
 google_analytics_id      :  # get google_analytics_id from https://analytics.google.com/analytics/
 
+# GoatCounter site URL, e.g. https://YOUR-SITE.goatcounter.com (no API key needed).
+# Enable "Allow adding visitor counts on your website" in GoatCounter settings.
+goatcounter_site         : "https://wyinleo-personalpage.goatcounter.com"
+
 # SEO Related
 google_site_verification :  # get google_site_verification from https://search.google.com/search-console/about
 bing_site_verification   :  # get bing_site_verification from https://www.bing.com/webmasters/about

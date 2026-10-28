@@ -27,7 +27,16 @@ layout: compress
       </article>
     </div>
 
+    {% if page.url == '/' and page.last_updated %}
+    <footer style="clear: both; padding: 1.5rem 1rem; text-align: center; font-size: 0.875rem; color: #666;">
+      Last Update: <time datetime="{{ page.last_updated }}">{{ page.last_updated }}</time>
+      <span aria-hidden="true"> &middot; </span>
+      <span>Visits: <span id="goatcounter-visits" aria-live="polite">—</span></span>
+    </footer>
+    {% endif %}
+
     {% include scripts.html %}
+    <script defer src="{{ '/assets/js/goatcounter.js' | relative_url }}" data-goatcounter-site="{{ site.goatcounter_site | escape }}"></script>
 
   </body>
 </html>
