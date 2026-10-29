@@ -27,15 +27,9 @@ layout: compress
       </article>
     </div>
 
-    {% if page.url == '/' and page.last_updated %}
+    {% if page.url == '/' %}
     <footer style="clear: both; padding: 1.5rem 1rem; text-align: center; font-size: 0.875rem; color: #666;">
-      Last Update: <time datetime="{{ page.last_updated }}">{{ page.last_updated }}</time>
-      <span aria-hidden="true"> &middot; </span>
-      <span>Total Visits: <span id="visit-total" aria-live="polite">—</span></span>
-      <span aria-hidden="true"> &middot; </span>
-      <span>Today: <span id="visit-today">—</span></span>
-      <span aria-hidden="true"> &middot; </span>
-      <span>This Month: <span id="visit-month">—</span></span>
+      <span>visit:<span id="visit-total" aria-live="polite">—</span></span>
     </footer>
     {% endif %}
 
