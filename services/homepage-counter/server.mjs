@@ -22,7 +22,18 @@ export function openStore(filename, secret, seed = null) {
             last_counted INTEGER NOT NULL, PRIMARY KEY(visitor, path));
         CREATE INDEX IF NOT EXISTS recent_time ON recent(last_counted);
         CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);`);
-    if (seed && !db.prepare('SELECT 1 FROM metadata WHERE key = ?').get('baseline')) {
+    if (seed?.history && !db.prepare('SELECT 1 FROM metadata WHERE key = ?').get('history-import')) {
+        db.exec('BEGIN IMMEDIATE');
+        try {
+            for (const [day, visits] of Object.entries(seed.history)) {
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !Number.isSafeInteger(visits) || visits < 0) throw new Error('Invalid history');
+                db.prepare('INSERT INTO daily VALUES (?,?)').run(day, visits);
+            }
+            db.prepare('INSERT INTO metadata VALUES (?,?)').run('history-import', '1');
+            db.exec('COMMIT');
+        } catch (error) { db.exec('ROLLBACK'); throw error; }
+    }
+    if (seed && !seed.history && !db.prepare('SELECT 1 FROM metadata WHERE key = ?').get('baseline')) {
         for (const k of ['total', 'today', 'month']) {
             if (!Number.isSafeInteger(seed[k]) || seed[k] < 0) throw new Error('Invalid baseline');
         }
@@ -64,12 +75,14 @@ export function openStore(filename, secret, seed = null) {
         }
         return { ...stats(now), counted };
     }
-    return { stats, visit, close: () => db.close() };
+    return { stats, visit, history: () => ({ stats: db.prepare('SELECT day, visits AS daily FROM daily ORDER BY day').all() }), close: () => db.close() };
 }
 
-export function createServer(store, allowedOrigins) {
+export function createServer(homeStore, allowedOrigins, paperStore = null) {
     const allowed = new Set(allowedOrigins);
     return http.createServer(async (req, res) => {
+        const isPaper = req.url.startsWith('/papernote/');
+        const store = isPaper ? paperStore : homeStore;
         const origin = req.headers.origin;
         res.setHeader('Cache-Control', 'no-store');
         res.setHeader('Vary', 'Origin');
@@ -80,7 +93,8 @@ export function createServer(store, allowedOrigins) {
         }
         if (origin && !allowed.has(origin)) return reply(403, { error: 'Origin not allowed' });
         if (origin) res.setHeader('Access-Control-Allow-Origin', origin);
-        const path = req.url.split('?')[0];
+        if (!store) return reply(404, { error: 'Not found' });
+        const path = req.url.split('?')[0].replace(/^\/papernote(?=\/)/, '');
         if (req.method === 'OPTIONS' && path === '/api/visit' && allowed.has(origin)) {
             res.writeHead(204, { 'Access-Control-Allow-Methods': 'POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Max-Age': '600' });
@@ -88,6 +102,7 @@ export function createServer(store, allowedOrigins) {
         }
         try {
             if (req.method === 'GET' && path === '/health') return reply(200, { ok: true });
+            if (isPaper && req.method === 'GET' && path === '/api/history') return reply(200, store.history());
             if (req.method === 'GET' && path === '/api/stats') return reply(200, store.stats());
             if (req.method !== 'POST' || path !== '/api/visit') return reply(404, { error: 'Not found' });
             if (!allowed.has(origin)) return reply(403, { error: 'Origin required' });
@@ -108,6 +123,7 @@ export function createServer(store, allowedOrigins) {
                 !body.path.startsWith('/') || body.path.startsWith('//') || /[?#\x00-\x20]/.test(body.path)) {
                 return reply(400, { error: 'Invalid page path' });
             }
+            if (paperStore && isPaper !== (body.path === '/papernote' || body.path.startsWith('/papernote/'))) return reply(400, { error: 'Page belongs to another site' });
             if (body.visitorId != null && !/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(body.visitorId)) {
                 return reply(400, { error: 'Invalid visitor ID' });
             }
@@ -127,9 +143,11 @@ export function createServer(store, allowedOrigins) {
 if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
     const seed = process.env.COUNTER_SEED_FILE ? JSON.parse(readFileSync(process.env.COUNTER_SEED_FILE, 'utf8')) : null;
     const store = openStore(process.env.COUNTER_DB || './counter.sqlite', process.env.COUNTER_SECRET, seed);
-    const server = createServer(store, (process.env.COUNTER_ORIGINS || 'https://wyinleo.github.io').split(','));
+    const paperStore = process.env.PAPERNOTE_DB ? openStore(process.env.PAPERNOTE_DB, process.env.COUNTER_SECRET + ':papernote',
+        JSON.parse(readFileSync(process.env.PAPERNOTE_SEED_FILE, 'utf8'))) : null;
+    const server = createServer(store, (process.env.COUNTER_ORIGINS || 'https://wyinleo.github.io').split(','), paperStore);
     server.requestTimeout = 10000;
     server.headersTimeout = 10000;
     server.listen(Number(process.env.PORT || 3210), '127.0.0.1', () => console.log('Homepage counter listening on loopback'));
-    for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => server.close(() => { store.close(); process.exit(0); }));
+    for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => server.close(() => { store.close(); paperStore?.close(); process.exit(0); }));
 }

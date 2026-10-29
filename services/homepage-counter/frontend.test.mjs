@@ -9,11 +9,11 @@ function browser({ hidden = false, optout = false, host = 'wyinleo.github.io' } 
     if (optout) storage.set('skipgc', 't');
     const nodes = Object.fromEntries(['total', 'today', 'month'].map(k => ['visit-' + k, { textContent: '—', removeAttribute() {} }]));
     const document = { visibilityState: hidden ? 'hidden' : 'visible',
-        currentScript: { getAttribute: () => 'https://yamayuki.space/homepage-counter' },
+        currentScript: { getAttribute: () => 'aHR0cHM6Ly95YW1heXVraS5zcGFjZS9yLzdjNjJkOTUzYTBlZjQ5OGI=' },
         getElementById: id => nodes[id], querySelector: () => null,
         addEventListener: (event, callback) => { events[event] = callback; } };
     const window = {}; window.top = window; window.self = window;
-    vm.runInNewContext(source, { document, window, URL, AbortController, setTimeout, clearTimeout,
+    vm.runInNewContext(source, { document, window, URL, atob, AbortController, setTimeout, clearTimeout,
         setInterval: (fn, delay) => { timers.push({ fn, delay }); },
         location: new URL('https://' + host + '/'),
         crypto: { randomUUID: () => 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb' },

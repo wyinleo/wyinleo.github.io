@@ -1,7 +1,16 @@
 # Homepage visit counter
 
-Public endpoint: `https://yamayuki.space/homepage-counter`.
-Frontend: `assets/js/visit-counter.js`; Jekyll URL: `_config.yml` → `visit_counter_api`.
+Public endpoint: `https://yamayuki.space/r/7c62d953a0ef498b`.
+Frontend: `assets/js/visit-counter.js`; Jekyll URL: `_config.yml` → `visit_counter_code`.
+
+Papernote endpoint: `https://yamayuki.space/r/b84e19f620d34ac7`.
+Frontend URLs are Base64 encoded; opaque paths reduce readability only, and remain
+visible in browser network tools. They are not secrets or access controls.
+Papernote uses a separate `papernote.sqlite`, imports the 30 visits in
+`papernote-seed.json` exactly once, and exposes `GET /api/history` for its daily
+README chart. Original historical day labels are preserved; new visits use
+Beijing time. Paths under `/papernote/` are accepted only by the papernote endpoint.
+Its frontend honors Do Not Track and `skipgc=t`.
 
 ## Counting and display
 
@@ -59,7 +68,7 @@ Operational checks:
 
 ```sh
 ssh tencent-remote-beijing 'sudo systemctl status homepage-counter --no-pager'
-curl https://yamayuki.space/homepage-counter/api/stats
+curl https://yamayuki.space/r/7c62d953a0ef498b/api/stats
 ```
 
 For a consistent database backup, use SQLite's online backup API (e.g. Python's

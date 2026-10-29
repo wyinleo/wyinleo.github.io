@@ -19,7 +19,7 @@ google_analytics_id      :  # get google_analytics_id from https://analytics.goo
 # GoatCounter site URL, e.g. https://YOUR-SITE.goatcounter.com (no API key needed).
 # Enable "Allow adding visitor counts on your website" in GoatCounter settings.
 goatcounter_site         : "https://wyinleo-personalpage.goatcounter.com"
-visit_counter_api        : "https://yamayuki.space/homepage-counter"
+visit_counter_code       : "aHR0cHM6Ly95YW1heXVraS5zcGFjZS9yLzdjNjJkOTUzYTBlZjQ5OGI="
 
 # SEO Related
 google_site_verification :  # get google_site_verification from https://search.google.com/search-console/about

@@ -1,6 +1,8 @@
 (function () {
     'use strict';
-    var api = document.currentScript.getAttribute('data-counter-api');
+    var api;
+    try { api = atob(document.currentScript.getAttribute('data-counter-code') || ''); }
+    catch (error) { return; }
     if (!api) return;
     api = api.replace(/\/$/, '');
     var visibleStats = document.getElementById('visit-total');

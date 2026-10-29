@@ -81,3 +81,32 @@ test('HTTP origins, validation, bot filtering, deduplication and no-cache respon
         await new Promise(resolve => server.close(resolve)); store.close();
     }
 });
+
+test('papernote history imports once and site counters stay isolated', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'counter-sites-'));
+    const file = join(dir, 'paper.sqlite');
+    const seed = { history: { '2026-10-28': 23, '2026-10-29': 7 } };
+    let paper = openStore(file, secret, seed);
+    paper.close(); paper = openStore(file, secret, seed);
+    assert.equal(paper.stats().total, 30);
+    assert.deepEqual(paper.history().stats.map(r => r.daily), [23, 7]);
+    const home = openStore(':memory:', secret);
+    const server = createServer(home, ['https://wyinleo.github.io'], paper);
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    const base = `http://127.0.0.1:${server.address().port}`;
+    const post = (prefix, path) => fetch(base + prefix + '/api/visit', {
+        method: 'POST', headers: { Origin: 'https://wyinleo.github.io', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, visitorId: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc' }) });
+    try {
+        assert.equal((await (await post('/papernote', '/papernote/')).json()).total, 31);
+        assert.equal(home.stats().total, 0);
+        assert.equal((await (await post('', '/')).json()).total, 1);
+        assert.equal(paper.stats().total, 31);
+        assert.equal((await post('', '/papernote/')).status, 400);
+        assert.equal((await post('/papernote', '/')).status, 400);
+        assert.equal((await (await fetch(base + '/papernote/api/history')).json()).stats.reduce((n,r) => n+r.daily,0), 31);
+    } finally {
+        await new Promise(resolve => server.close(resolve));
+        home.close(); paper.close(); rmSync(dir, { recursive: true });
+    }
+});

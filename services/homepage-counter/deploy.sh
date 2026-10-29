@@ -5,7 +5,7 @@ host=${DEPLOY_HOST:-tencent-remote-beijing}
 release=$(date -u +%Y%m%dT%H%M%SZ)
 archive=$(mktemp /tmp/homepage-counter.XXXXXX)
 trap 'rm -f "$archive"' EXIT
-COPYFILE_DISABLE=1 tar --no-xattrs -czf "$archive" server.mjs server.test.mjs seed.json homepage-counter.service nginx-location.conf nginx-rate.conf
+COPYFILE_DISABLE=1 tar --no-xattrs -czf "$archive" server.mjs server.test.mjs seed.json papernote-seed.json homepage-counter.service nginx-location.conf nginx-rate.conf
 scp "$archive" "$host:/tmp/homepage-counter-$release.tar.gz"
 ssh -o BatchMode=yes "$host" "sudo -n bash -s -- '$release'" <<'REMOTE'
 set -euo pipefail
@@ -61,6 +61,9 @@ if [ ! -f "$root/config/counter.env" ]; then
         printf 'COUNTER_ORIGINS=https://wyinleo.github.io\nPORT=3210\n'
     } > "$root/config/counter.env"
 fi
+if ! grep -q '^PAPERNOTE_DB=' "$root/config/counter.env"; then
+    printf 'PAPERNOTE_DB=%s/data/papernote.sqlite\nPAPERNOTE_SEED_FILE=%s/current/papernote-seed.json\n' "$root" "$root" >> "$root/config/counter.env"
+fi
 ln -s "$root/releases/$release" "$root/current.next"
 mv -Tf "$root/current.next" "$root/current"
 install -m 644 homepage-counter.service "$unit"
@@ -88,10 +91,11 @@ done
 curl --noproxy '*' -fsS http://127.0.0.1:3210/api/stats
 systemctl reload nginx
 for attempt in 1 2 3 4 5; do
-    if curl --noproxy '*' -fsS --resolve yamayuki.space:443:127.0.0.1 https://yamayuki.space/homepage-counter/health >/dev/null; then break; fi
+    if curl --noproxy '*' -fsS --resolve yamayuki.space:443:127.0.0.1 https://yamayuki.space/r/7c62d953a0ef498b/health >/dev/null; then break; fi
     sleep 1
 done
-curl --noproxy '*' -fsS --resolve yamayuki.space:443:127.0.0.1 https://yamayuki.space/homepage-counter/api/stats
+curl --noproxy '*' -fsS --resolve yamayuki.space:443:127.0.0.1 https://yamayuki.space/r/7c62d953a0ef498b/api/stats
+curl --noproxy '*' -fsS --resolve yamayuki.space:443:127.0.0.1 https://yamayuki.space/r/b84e19f620d34ac7/api/stats
 curl --noproxy '*' -fsS --resolve yamayuki.space:443:127.0.0.1 https://yamayuki.space/ >/dev/null
 curl --noproxy '*' -fsS http://127.0.0.1:3100/api/health
 systemctl enable homepage-counter
