@@ -3,7 +3,7 @@ permalink: /
 title: ""
 excerpt: ""
 author_profile: true
-last_updated: "2026-10-28"
+last_updated: "2026-10-29"
 ---
 
 {% if site.google_scholar_stats_use_cdn %}

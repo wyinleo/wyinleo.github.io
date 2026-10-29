@@ -15,7 +15,8 @@
     // Use the public tracking endpoint; never put a private API key in this file.
     var tracker = document.createElement('script');
     tracker.async = true;
-    tracker.src = 'https://gc.zgo.at/count.js';
+    // Serve the official tracker with the site so a CDN outage cannot stop counting.
+    tracker.src = new URL('goatcounter-count.js', document.currentScript.src).href;
     tracker.setAttribute('data-goatcounter', endpoint.origin + '/count');
     document.head.appendChild(tracker);
 
