@@ -18,6 +18,49 @@
     // Serve the official tracker with the site so a CDN outage cannot stop counting.
     tracker.src = new URL('goatcounter-count.js', document.currentScript.src).href;
     tracker.setAttribute('data-goatcounter', endpoint.origin + '/count');
+    tracker.setAttribute('data-goatcounter-settings', '{"no_onload":true}');
+    tracker.onload = function () {
+        var goat = window.goatcounter;
+        var counted = false;
+
+        function countVisit() {
+            if (counted || document.visibilityState === 'hidden') return;
+            // Preserve GoatCounter's localhost, iframe, and visitor opt-out filters.
+            try {
+                if (goat.filter()) return;
+            } catch (error) {
+                return;
+            }
+            counted = true;
+
+            var key = 'goatcounter:last-visit:' + endpoint.origin + ':' + goat.get_data().p;
+            var now = Date.now();
+            var stored = false;
+            try {
+                var previous = Number(window.localStorage.getItem(key));
+                if (previous > 0 && now >= previous && now - previous < 5 * 60 * 1000) return;
+                window.localStorage.setItem(key, String(now));
+                stored = true;
+            } catch (error) {
+                // If storage is unavailable, retain GoatCounter's default deduplication.
+            }
+
+            // Bypass the eight-hour session only after our five-minute check.
+            goat.count(stored ? { no_session: true } : {});
+        }
+
+        if (document.visibilityState === 'hidden') {
+            function whenVisible() {
+                if (document.visibilityState !== 'visible') return;
+                document.removeEventListener('visibilitychange', whenVisible);
+                countVisit();
+            }
+            document.addEventListener('visibilitychange', whenVisible);
+        } else {
+            countVisit();
+        }
+        if (!goat.no_events) goat.bind_events();
+    };
     document.head.appendChild(tracker);
 
     var counter = document.getElementById('goatcounter-visits');
