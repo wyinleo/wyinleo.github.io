@@ -40,7 +40,7 @@ layout: compress
     {% endif %}
 
     {% include scripts.html %}
-    <script defer src="{{ '/assets/js/visit-counter.js' | relative_url }}" data-counter-code="{{ site.visit_counter_code | escape }}"></script>
+    <script defer src="{{ '/assets/js/visit-counter.js' | relative_url }}?v=2" data-counter-code="{{ site.visit_counter_code | escape }}"></script>
 
   </body>
 </html>
