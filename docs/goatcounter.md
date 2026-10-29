@@ -1,5 +1,9 @@
 # GoatCounter tracker
 
+As of 2026-10-29, the homepage uses the independent counter on yamayuki.space.
+See `services/homepage-counter/README.md` for the active implementation and
+deployment. The following documents the previous GoatCounter integration.
+
 The official tracker is hosted alongside the website because requests to
 `https://gc.zgo.at/count.js` repeatedly timed out during diagnosis on 2026-10-29,
 while the GoatCounter site's public counter endpoint remained reachable.

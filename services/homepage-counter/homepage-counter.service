@@ -1,0 +1,24 @@
+[Unit]
+Description=Personal homepage visit counter
+After=network.target
+
+[Service]
+Type=simple
+User=homepagecounter
+Group=homepagecounter
+WorkingDirectory=/srv/homepage-counter/current
+EnvironmentFile=/srv/homepage-counter/config/counter.env
+ExecStart=/snap/node/current/bin/node /srv/homepage-counter/current/server.mjs
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/homepage-counter/data
+MemoryMax=128M
+TasksMax=32
+
+[Install]
+WantedBy=multi-user.target

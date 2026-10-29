@@ -31,12 +31,16 @@ layout: compress
     <footer style="clear: both; padding: 1.5rem 1rem; text-align: center; font-size: 0.875rem; color: #666;">
       Last Update: <time datetime="{{ page.last_updated }}">{{ page.last_updated }}</time>
       <span aria-hidden="true"> &middot; </span>
-      <span>Visits: <span id="goatcounter-visits" aria-live="polite">—</span></span>
+      <span>Total Visits: <span id="visit-total" aria-live="polite">—</span></span>
+      <span aria-hidden="true"> &middot; </span>
+      <span>Today: <span id="visit-today">—</span></span>
+      <span aria-hidden="true"> &middot; </span>
+      <span>This Month: <span id="visit-month">—</span></span>
     </footer>
     {% endif %}
 
     {% include scripts.html %}
-    <script defer src="{{ '/assets/js/goatcounter.js' | relative_url }}" data-goatcounter-site="{{ site.goatcounter_site | escape }}"></script>
+    <script defer src="{{ '/assets/js/visit-counter.js' | relative_url }}" data-counter-api="{{ site.visit_counter_api | escape }}"></script>
 
   </body>
 </html>
