@@ -1,0 +1,8 @@
+<section lang="en">
+  <h2>{{ course.label | escape }}</h2>
+  <p>Term: {{ course.term | escape }}</p>
+  <p>Class Schedule: {{ course.schedule | escape }}</p>
+  <p>Classroom: {{ course.classroom | escape }}</p>
+  <p>Course Materials: <a href="{{ course.resources_url | escape }}">Zhihuishu</a><br>
+  Course Code: {{ course.course_code | escape }}</p>
+</section>

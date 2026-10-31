@@ -28,8 +28,9 @@ layout: compress
     </div>
 
     {% if page.url == '/' %}
-    <footer style="clear: both; padding: 1.5rem 1rem; text-align: center; font-size: 0.875rem; color: #666;">
-      <span>visit:<span id="visit-total" aria-live="polite">—</span></span>
+    <footer style="clear: both; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem; padding: 1.5rem 1rem; font-size: 0.875rem; color: #666;">
+      <span style="grid-column: 2; text-align: center;">visit:<span id="visit-total" aria-live="polite">—</span></span>
+      <span style="grid-column: 3; text-align: right;">Last Update: <time datetime="{{ page.last_updated }}">{{ page.last_updated }}</time></span>
     </footer>
     {% endif %}
 

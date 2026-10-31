@@ -2,15 +2,4 @@
 layout: default
 ---
 {% assign course = site.data.lessons | where: 'id', page.course_id | first %}
-{% if course.schedule %}
-<p lang="en">{{ course.schedule | escape }}</p>
-{% endif %}
-<ul class="lesson-slides" lang="zh-CN">
-    {% for slide in course.slides %}
-    {% assign slide_path = '/lessons/' | append: course.id | append: '/' | append: slide.file %}
-    <li>
-      <span>{{ slide.title }}</span>
-      <a class="lesson-slides__pdf" href="{{ slide_path | relative_url | uri_escape }}" aria-label="{{ slide.title | escape }} PDF">[pdf]</a>
-    </li>
-    {% endfor %}
-</ul>
+{% include course-info.html %}

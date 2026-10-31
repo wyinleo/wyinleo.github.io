@@ -1,14 +1,11 @@
 ---
 permalink: /lessons/
 title: "Teaching"
-excerpt: "Course materials and lecture slides by Yin Wang, Tianjin University."
+excerpt: "Courses, class schedules, and classroom information."
 author_profile: false
 ---
 
-<h1>📚 Teaching</h1>
-<ul>
-  {% for course in site.data.lessons %}
-  {% assign course_path = '/lessons/' | append: course.id | append: '/' %}
-  <li><a href="{{ course_path | relative_url }}">{{ course.label }}</a></li>
-  {% endfor %}
-</ul>
+<h1>Teaching</h1>
+{% for course in site.data.lessons %}
+  {% include course-info.html %}
+{% endfor %}
